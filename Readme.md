@@ -179,3 +179,47 @@ public interface Class1Mapper{
 }
 ```
 
+
+
+setup Session Factory: (hunger type singleton mode:)
+
+```java
+public class MyBatisUtil{
+    private static SqlSessionFactory sqlSessionFactory=null;
+    public static SqlSessionFactory getSqlSessionFactory(){
+        InputStream ipts = null;
+        if(sqlSessionFactory == null){
+            try{
+                String resource = "mybatis_config.xml";
+                //read xml file
+                sqlSessionFactoy = new SqlSessionFactoryBuilder().build(Resource.getResourceAsStream(resource));
+            	return sqlSessionFactory;
+            }catch(Exception e){
+                e.printStacktrace();
+            }
+        }
+        return sqlSessionFactory;
+    }
+}
+```
+
+
+
+After these setup, we can use Mybatis to access DB:
+
+```java
+public class MyBatisSample{
+    public static void main(String[]args){
+        SqlSession sqlSession = null;
+        try{
+            sqlSession=MyBatisUtil.getSqlSessionFactory().openSession();
+            Class1Mapper class1Mapper = sqlSession.getMapper(Class1Mapper.class);
+            Class1 class1 = class1Mapper.getClass1)(1L);
+        }finally{
+            sqlSession.close();
+        }
+        return;
+    }
+}
+```
+
