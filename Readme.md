@@ -37,7 +37,7 @@
   </hibernate-mapping>	
   ```
 
-    
+​    
 
   Global config of Hibernate e.g.
 
@@ -223,3 +223,6 @@ public class MyBatisSample{
 }
 ```
 
+
+
+## MyBatis Basic
