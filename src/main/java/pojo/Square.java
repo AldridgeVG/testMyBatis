@@ -1,5 +1,8 @@
 package pojo;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("msquare")
 public class Square {
     private int length;
     private int height;
