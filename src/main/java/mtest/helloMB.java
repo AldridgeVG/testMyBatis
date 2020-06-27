@@ -1,4 +1,4 @@
-package test;
+package mtest;
 
 import mapper.SquareMapper;
 import org.apache.ibatis.session.SqlSession;
