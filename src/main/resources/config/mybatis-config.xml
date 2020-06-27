@@ -5,7 +5,7 @@
 <configuration>
     <!--Define Alias-->
     <typeAliases>
-        <typeAlias alias="square" type="testMyBatis.pojo.Square"/>
+        <typeAlias alias="msquare" type="testMyBatis.pojo.Square"/>
     </typeAliases>
     
     <!--Define DB Info-->
@@ -16,7 +16,7 @@
             <!--Config DB connection-->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="url" value="jdbc://localhost:3306/dbsquare?useSSL=false&serverTimezone=UTC"/>
+                <property name="url" value="jdbc://localhost:3306/testmb?useSSL=false;serverTimezone=UTC"/>
                 <property name="username" value="root"/>
                 <property name="password" value="galland990531"/>
             </dataSource>
