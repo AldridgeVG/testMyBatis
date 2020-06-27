@@ -7,6 +7,8 @@
 
 
 
+## Preparing
+
 ### ORM/Hibernate
 
 - **ORM: Object - Relation Mapping**
@@ -226,3 +228,51 @@ public class MyBatisSample{
 
 
 ## MyBatis Basic
+
+- start a mybatis project
+
+
+
+### Components
+
+- SqlSessionFactoryBuilder(Constructor): 
+
+    generate SqlSessionFactory according to configuration
+
+    
+
+- **SqlSessionFactory(Interface):**
+
+    generate SqlSession by factory info
+
+    
+
+- SqlSession(Dialect):
+
+    an interface can both send SQL to execute and get Mapper
+
+    
+
+- SQL Mapper(new in Mybatis):
+
+    a component form by Java interface and xml file, requiring providing coordinate SQL and mapping rules. Send SQL to execute and retrieve result set.
+
+
+
+### Initialization
+
+- MyBatis apps’ core: SqlSessionFactory
+- Construct a SqlSessionFactory: by xml config / by java coding
+
+
+
+#### Generate SqlSessionFactory by XML
+
+analyze xml config once and store information in a Configuration instance, in order to accelerate access. (Configuration class: org.apache.ibatis.session.Configurtion, as a class instance means DRAM storage, fast access). 
+
+
+
+SqlSession implement class in MyBatis: DefaultSqlSessionFactory
+
+
+
