@@ -12,8 +12,10 @@
     <!--Define DB Info-->
     <environments default="development">
         <environment id="development">
+
             <!--JDBC transaction management-->
             <transactionManager type="JDBC"/>
+
             <!--Config DB connection-->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
