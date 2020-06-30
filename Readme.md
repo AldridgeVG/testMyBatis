@@ -723,6 +723,8 @@ use “ **@MapperScan( value = “package_name” )** ” annotation in SpringBo
 
 1. get sample mybatis-config.xml and xxxMapper.xml file from MyBatis/mybatis-3 repo on GitHub.
 
+Global configuration: 
+
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
@@ -734,6 +736,10 @@ use “ **@MapperScan( value = “package_name” )** ” annotation in SpringBo
     </typeAliases>
 </configuration>
 ```
+
+
+
+SQL Mapping configuration
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -815,4 +821,6 @@ public class EmployeeController {
     </typeAliases>
 </configuration>
 ```
+
+
 
