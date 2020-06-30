@@ -350,7 +350,7 @@ STEPS:
 
 ## MyBatis Configuration
 
-- structure:
+- structure:  ( **MUST MATCH THIS ORDER** )
     - properties
     - settings
     - typeAliases
@@ -715,4 +715,104 @@ public class MyBatisConfig {
 
 if there’s too many mappers, add mapper annotation above every interface can be annoying.
 
-use “@MapperScan(value = “package_name”)” annotation in SpringBoot Main App to add all interfaces in a package as mappers
+use “ **@MapperScan( value = “package_name” )** ” annotation in SpringBoot Main App to add all interfaces in a package as mappers
+
+
+
+### by config file
+
+1. get sample mybatis-config.xml and xxxMapper.xml file from MyBatis/mybatis-3 repo on GitHub.
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <package name="com.example.demo.bean"/>
+    </typeAliases>
+</configuration>
+```
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.EmployeeMapper">
+    <!--configure 2 sql in the mapper interface-->
+    <!--
+        id after property name means name of method. names in #{} are from bean field
+    -->
+    <!--public Employee getEmpById(Integer id);-->
+    <select id="getEmpById" resultType="mEmp">
+        select * from employee where id = #{id}
+    </select>
+    
+    <!--public Employee insertEmp(Employee employee);-->
+    <insert id="insertEmp">
+        insert into employee(lastName,email,gender,d_id) values (#{lastName},#{email},#{gender},#{dId})
+    </insert>
+</mapper>
+```
+
+
+
+2. configure in application.yml to declare the existence of mybatis config
+
+```yml
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+```
+
+
+
+3. configure a controller to use mapper’s method. (typeAliases and so on can be used)
+
+```java
+public interface EmployeeMapper {
+
+    public Employee getEmpById(Integer id);
+
+    public Employee insertEmp(Employee employee);
+}
+```
+
+```java
+@RestController
+public class EmployeeController {
+
+    @Autowired
+    EmployeeMapper employeeMapper;
+
+    @GetMapping("/emp/{id}")
+    public Employee getEmployee(@PathVariable("id") Integer id){
+        return employeeMapper.getEmpById(id);
+    }
+
+    @GetMapping("/emp")
+    public Employee insertEmp(Employee employee){
+        employeeMapper.insertEmp(employee);
+        return employee;
+    }
+}
+```
+
+
+
+4. if there’s need to use type alias or underscore(xx_yy_zz) naming to camel naming(xxYyZz): configure in xml ( other configs also )
+
+```xml
+<configuration>
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    
+    <typeAliases>
+        <package name="com.example.demo.bean"/>
+    </typeAliases>
+</configuration>
+```
+
